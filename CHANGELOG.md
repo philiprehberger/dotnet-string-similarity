@@ -1,0 +1,9 @@
+# Changelog
+
+## 0.1.0 (2026-03-21)
+
+- Initial release
+- Levenshtein distance with normalized scoring
+- Jaro-Winkler similarity
+- Dice coefficient
+- Best-match search across candidates
