@@ -7,9 +7,9 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Philiprehberger.StringSimilarity</PackageId>
-    <Version>0.1.2</Version>
+    <Version>0.1.3</Version>
     <Authors>Philip Rehberger</Authors>
-    <Description>String similarity algorithms — Levenshtein distance, Jaro-Winkler, Dice coefficient, and best-match search with normalized 0–1 scores.</Description>
+    <Description>String similarity algorithms — Levenshtein, Jaro-Winkler, Dice coefficient, and best-match search.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>string;similarity;levenshtein;jaro-winkler;fuzzy-match</PackageTags>
