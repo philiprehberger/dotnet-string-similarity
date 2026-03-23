@@ -1,8 +1,8 @@
 # Philiprehberger.StringSimilarity
 
-[![NuGet](https://img.shields.io/nuget/v/Philiprehberger.StringSimilarity)](https://www.nuget.org/packages/Philiprehberger.StringSimilarity)
-[![Build](https://github.com/philiprehberger/dotnet-string-similarity/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/dotnet-string-similarity/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/philiprehberger/dotnet-string-similarity/blob/main/LICENSE)
+[![CI](https://github.com/philiprehberger/dotnet-string-similarity/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/dotnet-string-similarity/actions/workflows/ci.yml)
+[![NuGet](https://img.shields.io/nuget/v/Philiprehberger.StringSimilarity.svg)](https://www.nuget.org/packages/Philiprehberger.StringSimilarity)
+[![License](https://img.shields.io/github/license/philiprehberger/dotnet-string-similarity)](LICENSE)
 
 String similarity algorithms — Levenshtein distance, Jaro-Winkler, Dice coefficient, and best-match search with normalized 0–1 scores.
 
