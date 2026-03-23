@@ -6,10 +6,6 @@
 
 String similarity algorithms — Levenshtein distance, Jaro-Winkler, Dice coefficient, and best-match search with normalized 0–1 scores.
 
-## Requirements
-
-- .NET 8.0 or later
-
 ## Installation
 
 ```bash
@@ -64,9 +60,8 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 
 ```bash
 dotnet build src/Philiprehberger.StringSimilarity.csproj --configuration Release
-dotnet pack src/Philiprehberger.StringSimilarity.csproj --configuration Release -o out
 ```
 
 ## License
 
-[MIT](LICENSE)
+MIT
