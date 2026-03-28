@@ -101,6 +101,72 @@ public static class Similarity
     }
 
     /// <summary>
+    /// Computes a normalized Levenshtein similarity score between two strings.
+    /// </summary>
+    /// <param name="a">The first string.</param>
+    /// <param name="b">The second string.</param>
+    /// <returns>A value between 0.0 (completely different) and 1.0 (identical), calculated as <c>1 - distance / max(len_a, len_b)</c>.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is <c>null</c>.</exception>
+    public static double NormalizedLevenshtein(string a, string b)
+    {
+        ArgumentNullException.ThrowIfNull(a);
+        ArgumentNullException.ThrowIfNull(b);
+
+        return LevenshteinAlgorithm.Normalize(a, b);
+    }
+
+    /// <summary>
+    /// Finds the top N candidates ranked by similarity to the input string using the specified algorithm.
+    /// </summary>
+    /// <param name="input">The string to match against the candidates.</param>
+    /// <param name="candidates">The collection of candidate strings to search.</param>
+    /// <param name="n">The maximum number of results to return.</param>
+    /// <param name="algorithm">The similarity algorithm to use for ranking.</param>
+    /// <returns>A list of <see cref="MatchResult"/> objects sorted by descending similarity score, containing at most <paramref name="n"/> results.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> or <paramref name="candidates"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="n"/> is less than 1.</exception>
+    public static List<MatchResult> FindTopN(string input, IEnumerable<string> candidates, int n, SimilarityAlgorithm algorithm)
+    {
+        ArgumentNullException.ThrowIfNull(input);
+        ArgumentNullException.ThrowIfNull(candidates);
+
+        if (n < 1)
+            throw new ArgumentOutOfRangeException(nameof(n), "n must be at least 1.");
+
+        var results = new List<MatchResult>();
+        var algorithmName = algorithm.ToString();
+
+        foreach (var candidate in candidates)
+        {
+            if (candidate is null)
+                continue;
+
+            var score = ComputeScore(input, candidate, algorithm);
+            results.Add(new MatchResult(candidate, score, algorithmName));
+        }
+
+        results.Sort((x, y) => y.Score.CompareTo(x.Score));
+
+        return results.Count <= n ? results : results.GetRange(0, n);
+    }
+
+    /// <summary>
+    /// Computes a similarity score using the specified algorithm.
+    /// </summary>
+    private static double ComputeScore(string a, string b, SimilarityAlgorithm algorithm)
+    {
+        return algorithm switch
+        {
+            SimilarityAlgorithm.Levenshtein => LevenshteinAlgorithm.Normalize(a, b),
+            SimilarityAlgorithm.JaroWinkler => JaroWinklerAlgorithm.Compute(a, b),
+            SimilarityAlgorithm.Dice => DiceCoefficientAlgorithm.Compute(a, b),
+            SimilarityAlgorithm.Trigram => Trigram.Similarity(a, b),
+            SimilarityAlgorithm.NormalizedLevenshtein => LevenshteinAlgorithm.Normalize(a, b),
+            _ => throw new ArgumentOutOfRangeException(nameof(algorithm))
+        };
+    }
+
+    /// <summary>
     /// Evaluates all three algorithms and returns the highest score with its algorithm name.
     /// </summary>
     private static (double Score, string Algorithm) BestAlgorithmScore(string a, string b)

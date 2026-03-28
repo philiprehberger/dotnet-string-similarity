@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 (2026-03-27)
+
+- Add Soundex phonetic encoding and comparison
+- Add Double Metaphone phonetic encoding
+- Add trigram similarity using Jaccard index
+- Add normalized Levenshtein similarity (0.0–1.0 scale)
+- Add FindTopN method for ranked similarity search
+
 ## 0.1.3 (2026-03-23)
 
 - Shorten package description to meet 120-character limit

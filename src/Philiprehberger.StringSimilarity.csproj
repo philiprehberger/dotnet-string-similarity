@@ -7,12 +7,12 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Philiprehberger.StringSimilarity</PackageId>
-    <Version>0.1.3</Version>
+    <Version>0.2.0</Version>
     <Authors>Philip Rehberger</Authors>
-    <Description>String similarity algorithms — Levenshtein, Jaro-Winkler, Dice coefficient, and best-match search.</Description>
+    <Description>String similarity and phonetic algorithms including Levenshtein, Jaro-Winkler, Dice, Soundex, Double Metaphone, and trigrams.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>string;similarity;levenshtein;jaro-winkler;fuzzy-match</PackageTags>
+    <PackageTags>string;similarity;levenshtein;soundex;fuzzy-match</PackageTags>
     <RepositoryUrl>https://github.com/philiprehberger/dotnet-string-similarity</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
