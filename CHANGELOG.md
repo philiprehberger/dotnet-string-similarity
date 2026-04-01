@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 (2026-03-31)
+
+- Add Damerau-Levenshtein distance with transposition support
+- Add FuzzySearch combining multiple algorithms with configurable weights
+- Add PhoneticMatcher combining Soundex and Double Metaphone for phonetic matching
+
 ## 0.2.1 (2026-03-31)
 
 - Standardize README to 3-badge format with emoji Support section

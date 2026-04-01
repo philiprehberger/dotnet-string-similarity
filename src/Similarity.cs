@@ -116,6 +116,37 @@ public static class Similarity
     }
 
     /// <summary>
+    /// Computes the Damerau-Levenshtein distance between two strings.
+    /// Counts transpositions of adjacent characters as a single edit.
+    /// </summary>
+    /// <param name="a">The first string.</param>
+    /// <param name="b">The second string.</param>
+    /// <returns>The minimum number of edit operations (insertions, deletions, substitutions, transpositions) required to transform <paramref name="a"/> into <paramref name="b"/>.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is <c>null</c>.</exception>
+    public static int DamerauLevenshteinDistance(string a, string b)
+    {
+        ArgumentNullException.ThrowIfNull(a);
+        ArgumentNullException.ThrowIfNull(b);
+
+        return DamerauLevenshtein.Distance(a, b);
+    }
+
+    /// <summary>
+    /// Computes the normalized Damerau-Levenshtein similarity between two strings.
+    /// </summary>
+    /// <param name="a">The first string.</param>
+    /// <param name="b">The second string.</param>
+    /// <returns>A value between 0 (completely different) and 1 (identical).</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is <c>null</c>.</exception>
+    public static double DamerauLevenshteinSimilarity(string a, string b)
+    {
+        ArgumentNullException.ThrowIfNull(a);
+        ArgumentNullException.ThrowIfNull(b);
+
+        return DamerauLevenshtein.Normalize(a, b);
+    }
+
+    /// <summary>
     /// Finds the top N candidates ranked by similarity to the input string using the specified algorithm.
     /// </summary>
     /// <param name="input">The string to match against the candidates.</param>
@@ -162,6 +193,7 @@ public static class Similarity
             SimilarityAlgorithm.Dice => DiceCoefficientAlgorithm.Compute(a, b),
             SimilarityAlgorithm.Trigram => Trigram.Similarity(a, b),
             SimilarityAlgorithm.NormalizedLevenshtein => LevenshteinAlgorithm.Normalize(a, b),
+            SimilarityAlgorithm.DamerauLevenshtein => DamerauLevenshtein.Normalize(a, b),
             _ => throw new ArgumentOutOfRangeException(nameof(algorithm))
         };
     }

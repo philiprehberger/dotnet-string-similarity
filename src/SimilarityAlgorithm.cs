@@ -18,5 +18,8 @@ public enum SimilarityAlgorithm
     Trigram,
 
     /// <summary>Normalized Levenshtein distance as a similarity score (0-1).</summary>
-    NormalizedLevenshtein
+    NormalizedLevenshtein,
+
+    /// <summary>Damerau-Levenshtein distance with transpositions (0-1).</summary>
+    DamerauLevenshtein
 }

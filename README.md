@@ -4,7 +4,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Philiprehberger.StringSimilarity.svg)](https://www.nuget.org/packages/Philiprehberger.StringSimilarity)
 [![Last updated](https://img.shields.io/github/last-commit/philiprehberger/dotnet-string-similarity)](https://github.com/philiprehberger/dotnet-string-similarity/commits/main)
 
-String similarity and phonetic algorithms including Levenshtein, Jaro-Winkler, Dice, Soundex, Double Metaphone, and trigrams.
+String similarity and phonetic algorithms including Levenshtein, Damerau-Levenshtein, Jaro-Winkler, Dice, Soundex, Double Metaphone, trigrams, and fuzzy search.
 
 ## Installation
 
@@ -60,6 +60,47 @@ foreach (var match in topMatches)
 }
 ```
 
+### Damerau-Levenshtein
+
+```csharp
+using Philiprehberger.StringSimilarity;
+
+int distance = Similarity.DamerauLevenshteinDistance("ab", "ba");      // 1 (transposition)
+double score = Similarity.DamerauLevenshteinSimilarity("ab", "ba");    // 0.5
+```
+
+### Fuzzy Search
+
+```csharp
+using Philiprehberger.StringSimilarity;
+
+var fuzzy = new FuzzySearch();
+double score = fuzzy.Score("kitten", "sitting");
+
+var candidates = new[] { "apple", "application", "ape", "banana" };
+var results = fuzzy.Find("app", candidates, threshold: 0.3);
+var topResults = fuzzy.FindTopN("app", candidates, 2);
+
+// Custom weights
+var custom = new FuzzySearch(new Dictionary<SimilarityAlgorithm, double>
+{
+    [SimilarityAlgorithm.JaroWinkler] = 2.0,
+    [SimilarityAlgorithm.Dice] = 1.0
+});
+```
+
+### Phonetic Matching
+
+```csharp
+using Philiprehberger.StringSimilarity;
+
+bool similar = PhoneticMatcher.AreSimilar("Smith", "Smyth");  // true
+double score = PhoneticMatcher.Score("Smith", "Smyth");       // 0.5-1.0
+
+var candidates = new[] { "Smith", "Smyth", "Jones" };
+var matches = PhoneticMatcher.FindMatches("Smith", candidates);
+```
+
 ### Soundex
 
 ```csharp
@@ -104,6 +145,8 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 | `JaroWinkler(a, b)` | `double` | Jaro-Winkler similarity (0--1) |
 | `Dice(a, b)` | `double` | Sorensen-Dice coefficient (0--1) |
 | `Distance(a, b)` | `int` | Raw Levenshtein edit distance |
+| `DamerauLevenshteinDistance(a, b)` | `int` | Damerau-Levenshtein distance with transpositions |
+| `DamerauLevenshteinSimilarity(a, b)` | `double` | Normalized Damerau-Levenshtein similarity (0--1) |
 | `NormalizedLevenshtein(a, b)` | `double` | Normalized Levenshtein similarity (0--1) |
 | `BestMatch(input, candidates, threshold)` | `MatchResult?` | Best match across all algorithms |
 | `FindTopN(input, candidates, n, algorithm)` | `List<MatchResult>` | Top N matches ranked by score |
@@ -121,6 +164,29 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 |--------|--------|-------------|
 | `Encode(value)` | `(string Primary, string Alternate)` | Primary and alternate metaphone codes |
 
+### `DamerauLevenshtein`
+
+| Method | Return | Description |
+|--------|--------|-------------|
+| `Distance(a, b)` | `int` | Damerau-Levenshtein distance with transpositions |
+| `Normalize(a, b)` | `double` | Normalized similarity (0--1) |
+
+### `FuzzySearch`
+
+| Method | Return | Description |
+|--------|--------|-------------|
+| `Score(a, b)` | `double` | Weighted average similarity (0--1) |
+| `Find(query, candidates, threshold)` | `List<MatchResult>` | Candidates above threshold sorted by score |
+| `FindTopN(query, candidates, n)` | `List<MatchResult>` | Top N candidates sorted by score |
+
+### `PhoneticMatcher`
+
+| Method | Return | Description |
+|--------|--------|-------------|
+| `AreSimilar(a, b)` | `bool` | Whether strings sound alike (Soundex or Double Metaphone) |
+| `FindMatches(query, candidates)` | `List<string>` | Candidates that sound similar to query |
+| `Score(a, b)` | `double` | Phonetic similarity (0--1) |
+
 ### `Trigram`
 
 | Method | Return | Description |
@@ -136,6 +202,7 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 | `Dice` | Sorensen-Dice coefficient |
 | `Trigram` | Trigram similarity (Jaccard index) |
 | `NormalizedLevenshtein` | Normalized Levenshtein distance |
+| `DamerauLevenshtein` | Damerau-Levenshtein with transpositions |
 
 ## Development
 
