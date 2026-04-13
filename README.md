@@ -4,7 +4,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Philiprehberger.StringSimilarity.svg)](https://www.nuget.org/packages/Philiprehberger.StringSimilarity)
 [![Last updated](https://img.shields.io/github/last-commit/philiprehberger/dotnet-string-similarity)](https://github.com/philiprehberger/dotnet-string-similarity/commits/main)
 
-String similarity and phonetic algorithms including Levenshtein, Damerau-Levenshtein, Jaro-Winkler, Dice, Soundex, Double Metaphone, trigrams, and fuzzy search.
+String similarity and phonetic matching with Levenshtein, Jaro-Winkler, Dice, Soundex, and fuzzy search.
 
 ## Installation
 
@@ -127,6 +127,24 @@ using Philiprehberger.StringSimilarity;
 double score = Trigram.Similarity("night", "nacht");  // Jaccard index of trigram sets
 ```
 
+### Longest Common Subsequence
+
+```csharp
+using Philiprehberger.StringSimilarity;
+
+int length = LongestCommonSubsequence.Length("ABCBDAB", "BDCAB");     // 4
+double score = LongestCommonSubsequence.Similarity("kitten", "sitting");  // 0.571
+```
+
+### Overlap Coefficient
+
+```csharp
+using Philiprehberger.StringSimilarity;
+
+double score = OverlapCoefficient.Similarity("app", "application");  // 1.0
+double partial = OverlapCoefficient.Similarity("night", "nacht");    // 0.25-0.75
+```
+
 ### Raw Edit Distance
 
 ```csharp
@@ -193,6 +211,19 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 |--------|--------|-------------|
 | `Similarity(a, b)` | `double` | Jaccard index of trigram sets (0--1) |
 
+### `LongestCommonSubsequence`
+
+| Method | Return | Description |
+|--------|--------|-------------|
+| `Length(a, b)` | `int` | Length of the longest common subsequence |
+| `Similarity(a, b)` | `double` | Normalized LCS similarity (0--1) |
+
+### `OverlapCoefficient`
+
+| Method | Return | Description |
+|--------|--------|-------------|
+| `Similarity(a, b)` | `double` | Overlap coefficient using bigrams (0--1) |
+
 ### `SimilarityAlgorithm`
 
 | Value | Description |
@@ -203,6 +234,8 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 | `Trigram` | Trigram similarity (Jaccard index) |
 | `NormalizedLevenshtein` | Normalized Levenshtein distance |
 | `DamerauLevenshtein` | Damerau-Levenshtein with transpositions |
+| `LongestCommonSubsequence` | LCS-based similarity |
+| `OverlapCoefficient` | Overlap coefficient using bigrams |
 
 ## Development
 

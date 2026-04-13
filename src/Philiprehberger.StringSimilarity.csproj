@@ -7,9 +7,9 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Philiprehberger.StringSimilarity</PackageId>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
     <Authors>Philip Rehberger</Authors>
-    <Description>String similarity and phonetic algorithms including Levenshtein, Damerau-Levenshtein, Jaro-Winkler, Dice, Soundex, Double Metaphone, trigrams, and fuzzy search.</Description>
+    <Description>String similarity and phonetic matching with Levenshtein, Jaro-Winkler, Dice, Soundex, and fuzzy search.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>string;similarity;levenshtein;soundex;fuzzy-match</PackageTags>

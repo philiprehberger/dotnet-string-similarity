@@ -21,5 +21,11 @@ public enum SimilarityAlgorithm
     NormalizedLevenshtein,
 
     /// <summary>Damerau-Levenshtein distance with transpositions (0-1).</summary>
-    DamerauLevenshtein
+    DamerauLevenshtein,
+
+    /// <summary>Longest Common Subsequence similarity (0-1).</summary>
+    LongestCommonSubsequence,
+
+    /// <summary>Overlap Coefficient using bigrams (0-1).</summary>
+    OverlapCoefficient
 }

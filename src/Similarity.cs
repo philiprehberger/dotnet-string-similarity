@@ -194,6 +194,8 @@ public static class Similarity
             SimilarityAlgorithm.Trigram => Trigram.Similarity(a, b),
             SimilarityAlgorithm.NormalizedLevenshtein => LevenshteinAlgorithm.Normalize(a, b),
             SimilarityAlgorithm.DamerauLevenshtein => DamerauLevenshtein.Normalize(a, b),
+            SimilarityAlgorithm.LongestCommonSubsequence => LongestCommonSubsequence.Similarity(a, b),
+            SimilarityAlgorithm.OverlapCoefficient => OverlapCoefficient.Similarity(a, b),
             _ => throw new ArgumentOutOfRangeException(nameof(algorithm))
         };
     }

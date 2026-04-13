@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0 (2026-04-13)
+
+- Add Longest Common Subsequence with length and normalized similarity
+- Add Overlap Coefficient for substring-friendly bigram similarity
+- Shorten package description to meet 120-character limit
+
 ## 0.3.0 (2026-03-31)
 
 - Add Damerau-Levenshtein distance with transposition support
