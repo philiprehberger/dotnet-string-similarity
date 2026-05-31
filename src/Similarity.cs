@@ -147,6 +147,53 @@ public static class Similarity
     }
 
     /// <summary>
+    /// Computes the Hamming distance between two equal-length strings.
+    /// </summary>
+    /// <param name="a">The first string.</param>
+    /// <param name="b">The second string.</param>
+    /// <returns>The number of positions at which the characters differ.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the inputs differ in length.</exception>
+    public static int HammingDistance(string a, string b)
+    {
+        ArgumentNullException.ThrowIfNull(a);
+        ArgumentNullException.ThrowIfNull(b);
+
+        return Hamming.Distance(a, b);
+    }
+
+    /// <summary>
+    /// Computes the normalized Hamming similarity between two equal-length strings.
+    /// </summary>
+    /// <param name="a">The first string.</param>
+    /// <param name="b">The second string.</param>
+    /// <returns>A value between 0 (completely different) and 1 (identical).</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the inputs differ in length.</exception>
+    public static double HammingSimilarity(string a, string b)
+    {
+        ArgumentNullException.ThrowIfNull(a);
+        ArgumentNullException.ThrowIfNull(b);
+
+        return Hamming.Similarity(a, b);
+    }
+
+    /// <summary>
+    /// Computes the cosine similarity between two strings using character bigrams.
+    /// </summary>
+    /// <param name="a">The first string.</param>
+    /// <param name="b">The second string.</param>
+    /// <returns>A value between 0 (no shared bigrams) and 1 (identical).</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is <c>null</c>.</exception>
+    public static double CosineSimilarity(string a, string b)
+    {
+        ArgumentNullException.ThrowIfNull(a);
+        ArgumentNullException.ThrowIfNull(b);
+
+        return Cosine.Similarity(a, b);
+    }
+
+    /// <summary>
     /// Finds the top N candidates ranked by similarity to the input string using the specified algorithm.
     /// </summary>
     /// <param name="input">The string to match against the candidates.</param>
@@ -196,6 +243,8 @@ public static class Similarity
             SimilarityAlgorithm.DamerauLevenshtein => DamerauLevenshtein.Normalize(a, b),
             SimilarityAlgorithm.LongestCommonSubsequence => LongestCommonSubsequence.Similarity(a, b),
             SimilarityAlgorithm.OverlapCoefficient => OverlapCoefficient.Similarity(a, b),
+            SimilarityAlgorithm.Hamming => a.Length == b.Length ? Hamming.Similarity(a, b) : 0.0,
+            SimilarityAlgorithm.Cosine => Cosine.Similarity(a, b),
             _ => throw new ArgumentOutOfRangeException(nameof(algorithm))
         };
     }

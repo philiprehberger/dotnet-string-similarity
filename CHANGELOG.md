@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0 (2026-05-30)
+
+- Add `Hamming` static class with `Distance` and normalized `Similarity` for equal-length strings
+- Add `Cosine` static class with `Similarity` over character-bigram term-frequency vectors
+- Expose `Similarity.HammingDistance`, `Similarity.HammingSimilarity`, and `Similarity.CosineSimilarity` facade methods
+- Add `Hamming` and `Cosine` values to `SimilarityAlgorithm` enum
+- Add card image to README
+
 ## 0.4.0 (2026-04-13)
 
 - Add Longest Common Subsequence with length and normalized similarity

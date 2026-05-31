@@ -4,6 +4,8 @@
 [![NuGet](https://img.shields.io/nuget/v/Philiprehberger.StringSimilarity.svg)](https://www.nuget.org/packages/Philiprehberger.StringSimilarity)
 [![Last updated](https://img.shields.io/github/last-commit/philiprehberger/dotnet-string-similarity)](https://github.com/philiprehberger/dotnet-string-similarity/commits/main)
 
+![Philiprehberger.StringSimilarity](https://raw.githubusercontent.com/philiprehberger/dotnet-string-similarity/main/package-card.webp)
+
 String similarity and phonetic matching with Levenshtein, Jaro-Winkler, Dice, Soundex, and fuzzy search.
 
 ## Installation
@@ -145,6 +147,24 @@ double score = OverlapCoefficient.Similarity("app", "application");  // 1.0
 double partial = OverlapCoefficient.Similarity("night", "nacht");    // 0.25-0.75
 ```
 
+### Hamming Distance
+
+```csharp
+using Philiprehberger.StringSimilarity;
+
+int distance = Hamming.Distance("karolin", "kathrin");      // 3
+double score = Hamming.Similarity("karolin", "kathrin");    // 0.571
+```
+
+### Cosine Similarity
+
+```csharp
+using Philiprehberger.StringSimilarity;
+
+double score = Cosine.Similarity("night", "nacht");  // bigram cosine
+double exact = Cosine.Similarity("hello", "hello");  // 1.0
+```
+
 ### Raw Edit Distance
 
 ```csharp
@@ -165,6 +185,9 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 | `Distance(a, b)` | `int` | Raw Levenshtein edit distance |
 | `DamerauLevenshteinDistance(a, b)` | `int` | Damerau-Levenshtein distance with transpositions |
 | `DamerauLevenshteinSimilarity(a, b)` | `double` | Normalized Damerau-Levenshtein similarity (0--1) |
+| `HammingDistance(a, b)` | `int` | Hamming distance (equal-length strings) |
+| `HammingSimilarity(a, b)` | `double` | Normalized Hamming similarity (0--1) |
+| `CosineSimilarity(a, b)` | `double` | Cosine similarity over character bigrams (0--1) |
 | `NormalizedLevenshtein(a, b)` | `double` | Normalized Levenshtein similarity (0--1) |
 | `BestMatch(input, candidates, threshold)` | `MatchResult?` | Best match across all algorithms |
 | `FindTopN(input, candidates, n, algorithm)` | `List<MatchResult>` | Top N matches ranked by score |
@@ -224,6 +247,19 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 |--------|--------|-------------|
 | `Similarity(a, b)` | `double` | Overlap coefficient using bigrams (0--1) |
 
+### `Hamming`
+
+| Method | Return | Description |
+|--------|--------|-------------|
+| `Distance(a, b)` | `int` | Hamming distance (requires equal-length inputs) |
+| `Similarity(a, b)` | `double` | Normalized Hamming similarity (0--1) |
+
+### `Cosine`
+
+| Method | Return | Description |
+|--------|--------|-------------|
+| `Similarity(a, b)` | `double` | Cosine similarity over character-bigram vectors (0--1) |
+
 ### `SimilarityAlgorithm`
 
 | Value | Description |
@@ -236,6 +272,8 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 | `DamerauLevenshtein` | Damerau-Levenshtein with transpositions |
 | `LongestCommonSubsequence` | LCS-based similarity |
 | `OverlapCoefficient` | Overlap coefficient using bigrams |
+| `Hamming` | Hamming similarity (equal-length strings) |
+| `Cosine` | Cosine similarity over character bigrams |
 
 ## Development
 
