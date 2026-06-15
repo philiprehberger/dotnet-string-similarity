@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0 (2026-06-14)
+
+- Add `Jaccard` static class with `Similarity` over character sets and `TokenSimilarity` over whitespace-delimited token sets
+- Add `Metaphone` static class implementing the original Metaphone phonetic encoding with `Encode` and `AreSimilar`
+- Expose `Similarity.JaccardSimilarity` and `Similarity.JaccardTokenSimilarity` facade methods
+- Add `Jaccard` value to `SimilarityAlgorithm` enum
+
 ## 0.5.0 (2026-05-30)
 
 - Add `Hamming` static class with `Distance` and normalized `Similarity` for equal-length strings

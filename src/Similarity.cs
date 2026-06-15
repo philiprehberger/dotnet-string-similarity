@@ -194,6 +194,36 @@ public static class Similarity
     }
 
     /// <summary>
+    /// Computes the Jaccard similarity over the distinct character sets of two strings.
+    /// </summary>
+    /// <param name="a">The first string.</param>
+    /// <param name="b">The second string.</param>
+    /// <returns>A value between 0 (no shared characters) and 1 (identical character sets).</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is <c>null</c>.</exception>
+    public static double JaccardSimilarity(string a, string b)
+    {
+        ArgumentNullException.ThrowIfNull(a);
+        ArgumentNullException.ThrowIfNull(b);
+
+        return Jaccard.Similarity(a, b);
+    }
+
+    /// <summary>
+    /// Computes the Jaccard similarity over the whitespace-delimited token sets of two strings.
+    /// </summary>
+    /// <param name="a">The first string.</param>
+    /// <param name="b">The second string.</param>
+    /// <returns>A value between 0 (no shared tokens) and 1 (identical token sets).</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is <c>null</c>.</exception>
+    public static double JaccardTokenSimilarity(string a, string b)
+    {
+        ArgumentNullException.ThrowIfNull(a);
+        ArgumentNullException.ThrowIfNull(b);
+
+        return Jaccard.TokenSimilarity(a, b);
+    }
+
+    /// <summary>
     /// Finds the top N candidates ranked by similarity to the input string using the specified algorithm.
     /// </summary>
     /// <param name="input">The string to match against the candidates.</param>
@@ -245,6 +275,7 @@ public static class Similarity
             SimilarityAlgorithm.OverlapCoefficient => OverlapCoefficient.Similarity(a, b),
             SimilarityAlgorithm.Hamming => a.Length == b.Length ? Hamming.Similarity(a, b) : 0.0,
             SimilarityAlgorithm.Cosine => Cosine.Similarity(a, b),
+            SimilarityAlgorithm.Jaccard => Jaccard.Similarity(a, b),
             _ => throw new ArgumentOutOfRangeException(nameof(algorithm))
         };
     }

@@ -33,5 +33,8 @@ public enum SimilarityAlgorithm
     Hamming,
 
     /// <summary>Cosine similarity using character bigrams (0-1).</summary>
-    Cosine
+    Cosine,
+
+    /// <summary>Jaccard similarity over character sets (0-1).</summary>
+    Jaccard
 }
