@@ -33,9 +33,12 @@ internal static class JaroWinklerAlgorithm
     }
 
     /// <summary>
-    /// Computes the Jaro similarity between two strings.
+    /// Computes the Jaro similarity between two strings, without the Jaro-Winkler common-prefix boost.
     /// </summary>
-    private static double ComputeJaro(string a, string b)
+    /// <param name="a">The first string.</param>
+    /// <param name="b">The second string.</param>
+    /// <returns>A value between 0 (no similarity) and 1 (exact match).</returns>
+    internal static double ComputeJaro(string a, string b)
     {
         if (string.Equals(a, b, StringComparison.Ordinal))
             return 1.0;

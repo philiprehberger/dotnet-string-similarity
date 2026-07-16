@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0 (2026-07-15)
+
+- Add standalone `Similarity.Jaro` — Jaro similarity without the Jaro-Winkler common-prefix boost
+- Add `Tversky` static class and `Similarity.Tversky` facade — an asymmetric generalization of Jaccard and Dice with configurable `alpha`/`beta` weights for containment-style matching
+- Add `Jaro` and `Tversky` values to the `SimilarityAlgorithm` enum
+
 ## 0.6.0 (2026-06-14)
 
 - Add `Jaccard` static class with `Similarity` over character sets and `TokenSimilarity` over whitespace-delimited token sets

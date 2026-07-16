@@ -36,5 +36,11 @@ public enum SimilarityAlgorithm
     Cosine,
 
     /// <summary>Jaccard similarity over character sets (0-1).</summary>
-    Jaccard
+    Jaccard,
+
+    /// <summary>Jaro similarity without the Winkler prefix boost (0-1).</summary>
+    Jaro,
+
+    /// <summary>Tversky index over character sets with symmetric weights (0-1).</summary>
+    Tversky
 }

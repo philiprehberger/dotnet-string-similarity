@@ -34,6 +34,26 @@ using Philiprehberger.StringSimilarity;
 double score = Similarity.NormalizedLevenshtein("kitten", "sitting");  // 0.571
 ```
 
+### Jaro
+
+```csharp
+using Philiprehberger.StringSimilarity;
+
+// Jaro similarity without the Jaro-Winkler common-prefix boost
+double jaro = Similarity.Jaro("MARTHA", "MARHTA");  // 0.944
+```
+
+### Tversky Index
+
+```csharp
+using Philiprehberger.StringSimilarity;
+
+// Asymmetric set similarity: alpha weights chars only in a, beta weights chars only in b.
+double symmetric = Similarity.Tversky("ab", "abc");              // 0.8 (alpha=beta=0.5, Dice on sets)
+double jaccard = Similarity.Tversky("ab", "abc", 1.0, 1.0);     // equals Jaccard
+double containment = Similarity.Tversky("abc", "ab", 0.0, 1.0); // 1.0 — "ab" is a subset of "abc"
+```
+
 ### Best Match Search
 
 ```csharp
@@ -201,7 +221,9 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 |--------|--------|-------------|
 | `Levenshtein(a, b)` | `double` | Normalized Levenshtein similarity (0--1) |
 | `JaroWinkler(a, b)` | `double` | Jaro-Winkler similarity (0--1) |
+| `Jaro(a, b)` | `double` | Jaro similarity without the Winkler prefix boost (0--1) |
 | `Dice(a, b)` | `double` | Sorensen-Dice coefficient (0--1) |
+| `Tversky(a, b, alpha, beta)` | `double` | Tversky index over character sets (0--1); `alpha`/`beta` default to 0.5 |
 | `Distance(a, b)` | `int` | Raw Levenshtein edit distance |
 | `DamerauLevenshteinDistance(a, b)` | `int` | Damerau-Levenshtein distance with transpositions |
 | `DamerauLevenshteinSimilarity(a, b)` | `double` | Normalized Damerau-Levenshtein similarity (0--1) |
@@ -289,6 +311,12 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 | `Similarity(a, b)` | `double` | Jaccard similarity over character sets (0--1) |
 | `TokenSimilarity(a, b, separator)` | `double` | Jaccard similarity over token sets (0--1) |
 
+### `Tversky`
+
+| Method | Return | Description |
+|--------|--------|-------------|
+| `Similarity(a, b, alpha, beta)` | `double` | Tversky index over character sets (0--1); reduces to Jaccard (`alpha=beta=1`) or Dice (`alpha=beta=0.5`) |
+
 ### `Metaphone`
 
 | Method | Return | Description |
@@ -311,6 +339,8 @@ int distance = Similarity.Distance("kitten", "sitting");  // 3
 | `Hamming` | Hamming similarity (equal-length strings) |
 | `Cosine` | Cosine similarity over character bigrams |
 | `Jaccard` | Jaccard similarity over character sets |
+| `Jaro` | Jaro similarity without the Winkler prefix boost |
+| `Tversky` | Tversky index over character sets (symmetric weights) |
 
 ## Development
 

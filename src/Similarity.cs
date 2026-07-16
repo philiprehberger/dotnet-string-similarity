@@ -38,6 +38,40 @@ public static class Similarity
     }
 
     /// <summary>
+    /// Computes the Jaro similarity between two strings, without the Jaro-Winkler common-prefix boost.
+    /// </summary>
+    /// <param name="a">The first string.</param>
+    /// <param name="b">The second string.</param>
+    /// <returns>A value between 0 (no similarity) and 1 (exact match).</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is <c>null</c>.</exception>
+    public static double Jaro(string a, string b)
+    {
+        ArgumentNullException.ThrowIfNull(a);
+        ArgumentNullException.ThrowIfNull(b);
+
+        return JaroWinklerAlgorithm.ComputeJaro(a, b);
+    }
+
+    /// <summary>
+    /// Computes the Tversky index over the distinct character sets of two strings — an asymmetric
+    /// generalization of Jaccard (<c>α = β = 1</c>) and Dice (<c>α = β = 0.5</c>).
+    /// </summary>
+    /// <param name="a">The first string (weighted by <paramref name="alpha"/>).</param>
+    /// <param name="b">The second string (weighted by <paramref name="beta"/>).</param>
+    /// <param name="alpha">Weight applied to characters present only in <paramref name="a"/>. Defaults to 0.5.</param>
+    /// <param name="beta">Weight applied to characters present only in <paramref name="b"/>. Defaults to 0.5.</param>
+    /// <returns>A value between 0 (no shared characters) and 1 (identical character sets).</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="alpha"/> or <paramref name="beta"/> is negative.</exception>
+    public static double Tversky(string a, string b, double alpha = 0.5, double beta = 0.5)
+    {
+        ArgumentNullException.ThrowIfNull(a);
+        ArgumentNullException.ThrowIfNull(b);
+
+        return StringSimilarity.Tversky.Similarity(a, b, alpha, beta);
+    }
+
+    /// <summary>
     /// Computes the Sorensen-Dice coefficient between two strings using bigram overlap.
     /// </summary>
     /// <param name="a">The first string.</param>
@@ -276,6 +310,8 @@ public static class Similarity
             SimilarityAlgorithm.Hamming => a.Length == b.Length ? Hamming.Similarity(a, b) : 0.0,
             SimilarityAlgorithm.Cosine => Cosine.Similarity(a, b),
             SimilarityAlgorithm.Jaccard => Jaccard.Similarity(a, b),
+            SimilarityAlgorithm.Jaro => JaroWinklerAlgorithm.ComputeJaro(a, b),
+            SimilarityAlgorithm.Tversky => StringSimilarity.Tversky.Similarity(a, b),
             _ => throw new ArgumentOutOfRangeException(nameof(algorithm))
         };
     }
